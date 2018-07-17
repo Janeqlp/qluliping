@@ -32,12 +32,12 @@ public class JDBCCs {
             //创建数据库的链接
             connection = getConnection();
             //构建添加数据的SQL语句
-            String sql = "insert into book " +
+            String sql = "insert into book(id,book_name,book_publishers,book_author) " +
                     " VALUES ("+id+",'" + book_name + "','" + book_publishers + "','"+book_author +"')";
             //执行SQL语句
             statement = connection.createStatement();
             //得到执行结果，确定是否添加成功
-            int rows = statement.executeUpdate(sql);
+            int rows= statement.executeUpdate(sql);
             System.out.println("您插入了"+rows+"行，插入成功！");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,9 +132,9 @@ public class JDBCCs {
         //遍布结果集，输出每条记录的信息
         System.out.println("您全部的数据为：");
         StringBuffer buffer=new StringBuffer();
-        buffer.append("======================================================================================================" + System.lineSeparator());
-        buffer.append("        id                   book_name                 book_publishers             book_author"+System.lineSeparator());
-        buffer.append("======================================================================================================="+System.lineSeparator());
+        buffer.append("=====================================================================================================================" + System.lineSeparator());
+        buffer.append("        id                         book_name                         book_publishers                  book_author"+System.lineSeparator());
+        buffer.append("====================================================================================================================="+System.lineSeparator());
         for(int i=0;i<datas.length;i++){
             String [] values=datas[i];
             //因为返回的数组里可能包含多余数据，所以需要过滤
@@ -238,16 +238,17 @@ public class JDBCCs {
                 value=scaner.next();
                 jdbcCs.deleteData(Integer.parseInt(value));
             } else if (select!=4) {
-                    //退出系统
-                    System.out.println("退出系统" );
-                    System.exit(-1);
-                } else {
-                    //查看全部数据
-                    System.out.println("请输入要查询的关键字。");
-                    value=scaner.next();
-                    jdbcCs.findBookDataLikeKey("");
-                }
-        }
+                //退出系统
+                System.out.println("退出系统" );
+                System.exit(-1);
+            } else {
+                //查看全部数据
+                System.out.println("请输入要查询的关键字。");
+                value=scaner.next();
+                jdbcCs.findBookDataLikeKey("");
+            }
         }
     }
+}
+
 
